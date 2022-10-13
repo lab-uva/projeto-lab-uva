@@ -5,6 +5,7 @@
 - postgres (PG admin 4)
 - Postman
 - Spring boot
+- Maven
 
 ## Frontend
 - ReactJS
