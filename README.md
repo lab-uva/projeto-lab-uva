@@ -1,3 +1,10 @@
 # projeto-lab-uva
 
-# projeto-lab-uva /2
+## Backend
+- Java 11
+- Postman
+- Spring boot
+
+## Frontend
+- ReactJS
+- Typescript
