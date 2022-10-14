@@ -10,3 +10,5 @@
 ## Frontend
 - ReactJS
 - Typescript
+- Styled-components
+- Axios
