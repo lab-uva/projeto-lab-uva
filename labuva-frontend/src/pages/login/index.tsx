@@ -33,6 +33,9 @@ export const Login = () => {
         <Button margin="16px 0" onClick={() => console.log('logado')}>
           Fazer login
         </Button>
+        <Button secondary margin="16px 0" onClick={() => console.log('logado')}>
+          Criar conta
+        </Button>
       </Card>
     </Container>
   )

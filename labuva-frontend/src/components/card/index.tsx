@@ -6,14 +6,14 @@ const Container = styled.div<{
   maxWidth?: string
   padding?: string
 }>`
-  ${({ width = '80%', maxWidth = '600px', padding = '1rem' }) => css`
+  ${({ width = '80%', maxWidth = '600px', padding = '1rem', theme }) => css`
     width: ${width};
     max-width: ${maxWidth};
     height: auto;
     padding: ${padding};
     display: flex;
     flex-direction: column;
-    background-color: #fff;
+    background-color: ${theme.card.background};
     box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.68);
     border-radius: 1rem;
   `}

@@ -1,21 +1,36 @@
-import React, { Children, ReactNode } from 'react'
+import React from 'react'
 import styled, { css } from 'styled-components'
 
-const ButtonStyle = styled.button<{ margin?: string }>`
-  ${({ margin = '0' }) => css`
+const ButtonStyle = styled.button<{ margin?: string; secondary?: boolean }>`
+  ${({ margin = '0', secondary, theme }) => css`
     width: 100%;
     margin: ${margin};
     padding: 20px 30px;
     border-radius: 3px;
     border: none;
-    background-color: #029602;
-    color: #fff;
+    background-color: ${theme.button.primary.background};
+    color: ${theme.button.primary.color};
     cursor: pointer;
     font-size: 1rem;
 
     &:hover {
-      background-color: #046e04;
+      background-color: ${theme.button.primary.hover};
     }
+
+    ${(() => {
+      if (secondary) {
+        return css`
+          color: ${theme.button.secondary.color};
+          background-color: ${theme.button.secondary.background};
+          border: 2px solid ${theme.button.secondary.background};
+
+          &:hover {
+            color: ${theme.button.secondary.color};
+            background-color: ${theme.button.secondary.hover};
+          }
+        `
+      }
+    })()}
   `}
 `
 
@@ -23,10 +38,11 @@ type Props = {
   children: React.ReactNode
   margin?: string
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  secondary?: boolean
 }
 
-export const Button = ({ children, margin, onClick }: Props) => (
-  <ButtonStyle margin={margin} onClick={onClick}>
+export const Button = ({ children, margin, onClick, secondary }: Props) => (
+  <ButtonStyle margin={margin} onClick={onClick} secondary={secondary}>
     {children}
   </ButtonStyle>
 )
