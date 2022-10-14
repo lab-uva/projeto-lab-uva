@@ -1,7 +1,7 @@
-import { Login } from './pages/login';
+import { Login } from './pages/login'
 
 const App = () => {
-  return <Login />;
-};
+  return <Login />
+}
 
-export default App;
+export default App

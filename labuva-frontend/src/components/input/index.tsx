@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { ReactComponentElement, useRef } from 'react'
+import styled from 'styled-components'
 
 const InputText = styled.input`
   padding: 15px;
@@ -10,8 +10,8 @@ const InputText = styled.input`
   box-sizing: border-box;
   font-family: montserrat;
   color: #2c3e50;
-  font-size: 13px;
-`;
+  font-size: 1rem;
+`
 
 const Label = styled.span``
 
@@ -28,16 +28,25 @@ export type Props = Omit<
   placeholderValue?: string
 }
 
-export const Input = ({id, label, width="100%", type="text", placeholderValue}: Props) => {
-	return (
-		<div>
-			<Label>{label}</Label>
-			<InputText
-			id={id}
-			width={width}
-			type={type}
-			placeholder={placeholderValue}
-			/>
-		</div>
-)
-} 
+export const Input = ({
+  id,
+  label,
+  width = '100%',
+  type = 'text',
+  placeholderValue,
+}: Props) => {
+  const innerRef = useRef<HTMLInputElement>(null)
+
+  return (
+    <div>
+      <Label>{label}</Label>
+      <InputText
+        ref={innerRef}
+        id={id}
+        width={width}
+        type={type}
+        placeholder={placeholderValue}
+      />
+    </div>
+  )
+}
