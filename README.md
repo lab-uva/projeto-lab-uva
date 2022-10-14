@@ -1,3 +1,12 @@
 # projeto-lab-uva
 
-# projeto-lab-uva /2
+## Backend
+- Java 11
+- postgres (PG admin 4)
+- Postman
+- Spring boot
+- Maven
+
+## Frontend
+- ReactJS
+- Typescript
