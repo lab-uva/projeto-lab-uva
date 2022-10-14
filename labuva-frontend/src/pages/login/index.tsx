@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Card } from '../../components/card'
 import styled from 'styled-components'
-import { Row } from '../../components/forms'
+import { Column, Row } from '../../components/forms'
 import { Input } from '../../components/input'
 import { useForm } from 'react-hook-form'
 import { Button } from '../../components/button'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `
 
 type LoginInput = {
@@ -24,7 +26,7 @@ export const Login = () => {
 
   return (
     <Container>
-      <Card padding="50px 30px">
+      <Card padding="50px 30px" width="70%">
         <Row margin="0 0 24px 0">
           <h1>Login</h1>
         </Row>
@@ -33,9 +35,11 @@ export const Login = () => {
         <Button margin="16px 0" onClick={() => console.log('logado')}>
           Fazer login
         </Button>
-        <Button secondary margin="16px 0" onClick={() => console.log('logado')}>
-          Criar conta
-        </Button>
+        <Row justifyContent="center">
+          <p>
+            Não tem conta? <Link to="/signup">Crie uma grátis</Link>
+          </p>
+        </Row>
       </Card>
     </Container>
   )

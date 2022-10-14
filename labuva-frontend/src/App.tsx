@@ -7,6 +7,7 @@ import { darkTheme, lightTheme } from './styles/theme'
 // routes
 import { Login } from './pages/login'
 import { Signup } from './pages/signup'
+import { Row } from './components/forms'
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
-  const [test, setTheme] = useState(true)
+  const [test, setTheme] = useState(false)
 
   return (
     <ThemeProvider theme={test ? darkTheme : lightTheme}>

@@ -1,11 +1,18 @@
-import React, { ReactComponentElement, useRef } from 'react'
-import styled from 'styled-components'
+import React, { useRef } from 'react'
+import styled, { css } from 'styled-components'
+
+const Container = styled.div<{ margin?: string; width?: string }>`
+  ${({ margin = '0 0 16px 0', width = '100%' }) => css`
+    width: ${width};
+    margin: ${margin};
+  `}
+`
 
 const InputText = styled.input`
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 3px;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
   width: 100%;
   box-sizing: border-box;
   font-family: montserrat;
@@ -24,6 +31,7 @@ export type Props = Omit<
   id?: string
   label?: string
   width?: string
+  margin?: string
   type: InputTypes
   placeholderValue?: string
 }
@@ -31,22 +39,22 @@ export type Props = Omit<
 export const Input = ({
   id,
   label,
-  width = '100%',
+  width,
+  margin,
   type = 'text',
   placeholderValue,
 }: Props) => {
   const innerRef = useRef<HTMLInputElement>(null)
 
   return (
-    <div>
+    <Container width={width} margin={margin}>
       <Label>{label}</Label>
       <InputText
         ref={innerRef}
         id={id}
-        width={width}
         type={type}
         placeholder={placeholderValue}
       />
-    </div>
+    </Container>
   )
 }

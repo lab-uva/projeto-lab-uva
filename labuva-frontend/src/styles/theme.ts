@@ -4,6 +4,7 @@ export const lightTheme: DefaultTheme = {
   background: 'offwhite',
   titles: '#212121',
   text: '#2D3035',
+  textIsActive: '#0066FF',
 
   card: {
     background: '#fff',
@@ -21,7 +22,7 @@ export const lightTheme: DefaultTheme = {
     secondary: {
       background: '#E6F0FF',
       color: '#0066FF',
-      hover: '#6B6F75',
+      hover: '#e0ecff',
       active: '#45464F',
       disabled: '#34353C',
     },
@@ -32,6 +33,7 @@ export const darkTheme: DefaultTheme = {
   background: '#22252A',
   titles: '#fff',
   text: '#FAFAFA',
+  textIsActive: '#2288FF',
 
   card: {
     background: '#2D3035',
