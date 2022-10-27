@@ -6,6 +6,14 @@ export const lightTheme: DefaultTheme = {
   text: '#2D3035',
   textIsActive: '#0066FF',
 
+  importanceDegree: {
+    none: '#cccccc',
+    low: '#D4EADD',
+    medium: '#F9C7A4',
+    high: '#FFC1CE',
+    ultra: '#93344A',
+  },
+
   card: {
     background: '#fff',
   },
@@ -34,6 +42,13 @@ export const darkTheme: DefaultTheme = {
   titles: '#fff',
   text: '#FAFAFA',
   textIsActive: '#2288FF',
+
+  importanceDegree: {
+    low: '#D4EADD',
+    medium: '#F9C7A4',
+    high: '#FFC1CE',
+    ultra: '#93344A',
+  },
 
   card: {
     background: '#2D3035',

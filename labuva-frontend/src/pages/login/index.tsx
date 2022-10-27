@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card } from '../../components/card'
 import styled from 'styled-components'
-import { Column, Row } from '../../components/forms'
+import { Row } from '../../components/forms'
 import { Input } from '../../components/input'
 import { useForm } from 'react-hook-form'
 import { Button } from '../../components/button'
