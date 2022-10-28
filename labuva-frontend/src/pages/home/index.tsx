@@ -1,6 +1,7 @@
-import React from 'react'
 import styled from 'styled-components'
 import { ItemList } from '../../components/item-list'
+import { dateFormat } from '../../utils/date-formatter'
+import { useFetch } from '../_hooks/use-fetch'
 
 const Container = styled.div`
   width: 85vw;
@@ -10,38 +11,22 @@ const Container = styled.div`
 `
 
 export const Home = () => {
+  const { data, isLoading, error } = useFetch(
+    'http://localhost:8080/school-work',
+  )
+
+  if (!data) return null
+
   return (
     <Container>
-      <ItemList
-        importanceDegree="none"
-        title="Título do trabalho 1"
-        finalDate="05/11/2022"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in elit nec neque maximus euismod. Quisque blandit libero nec mollis gravida. Sed faucibus dictum dolor."
-      />
-      <ItemList
-        importanceDegree="low"
-        title="Título do trabalho 2"
-        finalDate="10/11/2022"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in elit nec neque maximus euismod. Quisque blandit libero nec mollis gravida. Sed faucibus dictum dolor."
-      />
-      <ItemList
-        importanceDegree="medium"
-        title="Título do trabalho 3"
-        finalDate="07/12/2022"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in elit nec neque maximus euismod. Quisque blandit libero nec mollis gravida. Sed faucibus dictum dolor."
-      />
-      <ItemList
-        importanceDegree="high"
-        title="Título do trabalho 4"
-        finalDate="13/12/2022"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in elit nec neque maximus euismod. Quisque blandit libero nec mollis gravida. Sed faucibus dictum dolor."
-      />
-      <ItemList
-        importanceDegree="ultra"
-        title="Título do trabalho 5"
-        finalDate="01/12/2022"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in elit nec neque maximus euismod. Quisque blandit libero nec mollis gravida. Sed faucibus dictum dolor."
-      />
+      {data.map((item) => (
+        <ItemList
+          importanceDegree="none"
+          title={item.schoolWorkName}
+          finalDate={dateFormat(item.createdAtDate)} // mudar para data final
+          description={item.schoolWorkDescription}
+        />
+      ))}
     </Container>
   )
 }

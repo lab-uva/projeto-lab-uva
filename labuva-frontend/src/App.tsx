@@ -8,6 +8,7 @@ import { darkTheme, lightTheme } from './styles/theme'
 import { Login } from './pages/login'
 import { Signup } from './pages/signup'
 import { Home } from './pages/home'
+import { Button } from './components/button'
 
 const router = createBrowserRouter([
   {
@@ -25,11 +26,18 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
-  const [theme, setTheme] = useState(false)
+  const [theme, setTheme] = useState(true)
 
   return (
     <ThemeProvider theme={theme ? darkTheme : lightTheme}>
       <GlobalStyle />
+      <Button
+        onClick={
+          () => setTheme(!theme) // personalizar botão p/ ícone
+        }
+      >
+        mudar tema
+      </Button>
       <RouterProvider router={router} />
     </ThemeProvider>
   )
