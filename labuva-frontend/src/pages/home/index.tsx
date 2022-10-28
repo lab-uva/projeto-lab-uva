@@ -13,6 +13,7 @@ const Container = styled.div`
 export const Home = () => {
   const { data, isLoading, error } = useFetch(
     'http://localhost:8080/school-work',
+    { method: 'GET' },
   )
 
   if (!data) return null
@@ -21,6 +22,7 @@ export const Home = () => {
     <Container>
       {data.map((item) => (
         <ItemList
+          key={item.id}
           importanceDegree="none"
           title={item.schoolWorkName}
           finalDate={dateFormat(item.createdAtDate)} // mudar para data final
