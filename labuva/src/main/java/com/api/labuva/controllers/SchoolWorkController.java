@@ -43,13 +43,15 @@ public class SchoolWorkController {
     public ResponseEntity<Object> getOneSchoolWork(@PathVariable(value = "id") UUID id) {
         return ResponseEntity.ok(schoolWorkService.findByIdOrThrowBadRequestException(id));
     }
+
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id){
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         schoolWorkService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody SchoolWorkDtoPut schoolWorkDtoPut){
+    public ResponseEntity<Void> replace(@RequestBody SchoolWorkDtoPut schoolWorkDtoPut) {
         schoolWorkService.replace(schoolWorkDtoPut);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
