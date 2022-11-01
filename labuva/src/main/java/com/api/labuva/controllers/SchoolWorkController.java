@@ -1,6 +1,7 @@
 package com.api.labuva.controllers;
 
 import com.api.labuva.dtos.SchoolWorkDto;
+import com.api.labuva.dtos.SchoolWorkDtoPut;
 import com.api.labuva.models.SchoolWorkModel;
 import com.api.labuva.services.SchoolWorkService;
 import org.springframework.beans.BeanUtils;
@@ -12,7 +13,6 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -20,7 +20,7 @@ import java.util.UUID;
 @RequestMapping("/school-work")
 public class SchoolWorkController {
 
-    final SchoolWorkService schoolWorkService;
+    private final SchoolWorkService schoolWorkService;
 
     public SchoolWorkController(SchoolWorkService schoolWorkService) {
         this.schoolWorkService = schoolWorkService;
@@ -41,11 +41,16 @@ public class SchoolWorkController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getOneSchoolWork(@PathVariable(value = "id") UUID id) {
-        Optional<SchoolWorkModel> schoolWorkModelOptional = schoolWorkService.findById(id);
-
-        if (!schoolWorkModelOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("School Work not found.");
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(schoolWorkModelOptional.get());
+        return ResponseEntity.ok(schoolWorkService.findByIdOrThrowBadRequestException(id));
+    }
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id){
+        schoolWorkService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @PutMapping
+    public ResponseEntity<Void> replace(@RequestBody SchoolWorkDtoPut schoolWorkDtoPut){
+        schoolWorkService.replace(schoolWorkDtoPut);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
