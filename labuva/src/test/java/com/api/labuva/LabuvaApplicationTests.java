@@ -9,5 +9,4 @@ class LabuvaApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
