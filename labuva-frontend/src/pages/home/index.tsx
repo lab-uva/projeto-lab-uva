@@ -1,13 +1,12 @@
 import styled from 'styled-components'
 import { ItemList } from '../../components/item-list'
+import { Panel } from '../../layout/panel'
 import { dateFormat } from '../../utils/date-formatter'
 import { useFetch } from '../_hooks/use-fetch'
 
 const Container = styled.div`
-  width: 85vw;
-  max-width: 900px;
-  height: 1000px;
-  padding: 1rem;
+  width: 100%;
+  height: auto;
 `
 
 export const Home = () => {
@@ -19,16 +18,18 @@ export const Home = () => {
   if (!data) return null
 
   return (
-    <Container>
-      {data.map((item) => (
-        <ItemList
-          key={item.id}
-          importanceDegree="none"
-          title={item.schoolWorkName}
-          finalDate={dateFormat(item.createdAtDate)} // mudar para data final
-          description={item.schoolWorkDescription}
-        />
-      ))}
-    </Container>
+    <Panel>
+      <Container>
+        {data.map((item) => (
+          <ItemList
+            key={item.id}
+            importanceDegree="none"
+            title={item.schoolWorkName}
+            finalDate={dateFormat(item.createdAtDate)} // mudar para data final
+            description={item.schoolWorkDescription}
+          />
+        ))}
+      </Container>
+    </Panel>
   )
 }

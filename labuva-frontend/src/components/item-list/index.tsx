@@ -4,8 +4,7 @@ import { Button } from '../button'
 import { Column, Row } from '../forms'
 
 const Container = styled.div<{ margin?: string }>`
-  ${({ margin = '0 0 32px 0', theme }) => css`
-    width: 100%;
+  ${({ margin = '32px 0 0 0', theme }) => css`
     margin: ${margin};
     min-height: 150px;
     height: auto;
@@ -14,6 +13,15 @@ const Container = styled.div<{ margin?: string }>`
     background-color: ${theme.card.background};
     box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.68);
     border-radius: 1rem;
+
+    h2 {
+      font-size: 0.95rem;
+      margin-bottom: 5px;
+    }
+
+    p {
+      font-size: 0.8rem;
+    }
   `}
 `
 
