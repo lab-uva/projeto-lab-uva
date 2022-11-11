@@ -1,6 +1,6 @@
 package com.api.labuva.controllers;
 
-import com.api.labuva.dtos.SchoolWorkDto;
+import com.api.labuva.dtos.SchoolWorkDtoPost;
 import com.api.labuva.dtos.SchoolWorkDtoPut;
 import com.api.labuva.models.SchoolWorkModel;
 import com.api.labuva.services.SchoolWorkService;
@@ -10,8 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,10 +31,19 @@ public class SchoolWorkController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> saveSchoolWork(@RequestBody @Valid SchoolWorkDto schoolWorkDto) {
+    public ResponseEntity<Object> saveSchoolWork(@RequestBody @Valid SchoolWorkDtoPost schoolWorkDto) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        try{
+            date = simpleDateFormat.parse(schoolWorkDto.getDeliveryDate());
+
+        } catch (ParseException e) {
+            System.out.println(e);
+        }
         var schoolWorkModel = new SchoolWorkModel();
         BeanUtils.copyProperties(schoolWorkDto, schoolWorkModel);
         schoolWorkModel.setCreatedAtDate(LocalDateTime.now(ZoneId.of("UTC")));
+        schoolWorkModel.setDeliveryDate(date);
         return ResponseEntity.status(HttpStatus.CREATED).body(schoolWorkService.save(schoolWorkModel));
     }
 
