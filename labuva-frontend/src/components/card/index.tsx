@@ -3,18 +3,20 @@ import styled, { css } from 'styled-components'
 
 const Container = styled.div<{
   width?: string
+  margin?: string
   maxWidth?: string
   padding?: string
 }>`
-  ${({ width = '80%', maxWidth = '600px', padding = '1rem', theme }) => css`
+  ${({ width = '80%', maxWidth, padding = '1rem', theme, margin }) => css`
     width: ${width};
-    max-width: ${maxWidth};
+    ${margin && `margin: ${margin};`}
+    ${maxWidth && `max-width: ${maxWidth};`}
     height: auto;
     padding: ${padding};
     display: flex;
     flex-direction: column;
     background-color: ${theme.card.background};
-    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.68);
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
     border-radius: 1rem;
   `}
 `
@@ -22,12 +24,18 @@ const Container = styled.div<{
 type Props = {
   children: ReactNode
   width?: string
+  margin?: string
   maxWidth?: string
   padding?: string
 }
 
-export const Card = ({ children, width, maxWidth, padding }: Props) => (
-  <Container width={width} padding={padding} maxWidth={maxWidth}>
+export const Card = ({ children, width, maxWidth, padding, margin }: Props) => (
+  <Container
+    width={width}
+    padding={padding}
+    maxWidth={maxWidth}
+    margin={margin}
+  >
     {children}
   </Container>
 )

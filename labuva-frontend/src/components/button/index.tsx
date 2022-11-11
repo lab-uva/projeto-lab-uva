@@ -1,9 +1,14 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-const ButtonStyle = styled.button<{ margin?: string; secondary?: boolean }>`
-  ${({ margin = '0', secondary, theme }) => css`
+const ButtonStyle = styled.button<{
+  margin?: string
+  maxWidth?: string
+  secondary?: boolean
+}>`
+  ${({ margin = '0', secondary, theme, maxWidth = '200px' }) => css`
     width: 100%;
+    max-width: ${maxWidth};
     height: 40px;
     margin: ${margin};
     padding: 20px 30px;

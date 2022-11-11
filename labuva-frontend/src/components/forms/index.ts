@@ -6,11 +6,18 @@ export const Row = styled.div<{
   margin?: string
   justifyContent?: justifyContentType
   width?: string
+  maxWidth?: string
 }>`
-  ${({ margin, justifyContent = 'flex-start', width = '100%' }) => css`
+  ${({
+    margin,
+    justifyContent = 'flex-start',
+    width = '100%',
+    maxWidth = '100%',
+  }) => css`
     display: flex;
     justify-content: ${justifyContent};
     width: ${width};
+    max-width: ${maxWidth};
     margin: ${margin};
     display: flex;
     flex-direction: row;

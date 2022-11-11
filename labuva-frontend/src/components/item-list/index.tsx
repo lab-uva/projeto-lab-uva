@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Button } from '../button'
+import { ButtonIcon } from '../button-icon'
 import { Column, Row } from '../forms'
 
 const Container = styled.div<{ margin?: string }>`
@@ -87,18 +88,18 @@ export const ItemList = ({
         <Row>
           <Column>
             <h2>{title}</h2>
-            <p>{finalDate}</p>
+            <p>Data final: {finalDate}</p>
           </Column>
         </Row>
         <Row margin="16px 0">
           <p>{description}</p>
         </Row>
       </Column>
-      <Row>
+      <Row justifyContent="flex-end">
         <Button>Ver detalhes</Button>
-        <Button secondary margin="0 0 0 8px">
+        <ButtonIcon secondary iconName="check" margin="0 0 0 8px">
           Marcar como feito
-        </Button>
+        </ButtonIcon>
       </Row>
     </Container>
   )

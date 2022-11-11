@@ -8,7 +8,7 @@ const Container = styled.div<{ margin?: string; width?: string }>`
   `}
 `
 
-const InputText = styled.input`
+const TextareaText = styled.textarea`
   ${({ theme }) => css`
     padding: 15px;
     border: 1px solid #ccc;
@@ -19,6 +19,7 @@ const InputText = styled.input`
     font-family: montserrat;
     color: ${theme.text};
     font-size: 1rem;
+    resize: vertical;
     font-family: Open-Sans, Helvetica, Sans-Serif;
   `}
 `
@@ -27,39 +28,25 @@ const Label = styled.label`
   margin-bottom: 8px;
 `
 
-type InputTypes = 'text' | 'password' | 'email' | 'search' | 'date'
-
-export type Props = Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  'type' | 'css'
-> & {
+export type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'css'> & {
   id?: string
   label?: string
   width?: string
   margin?: string
-  type: InputTypes
   placeholderValue?: string
 }
 
-export const Input = ({
+export const Textarea = ({
   id,
   label,
   width,
   margin,
-  type = 'text',
   placeholderValue,
 }: Props) => {
-  const innerRef = useRef<HTMLInputElement>(null)
-
   return (
     <Container width={width} margin={margin}>
       <Label htmlFor={label}>{label}</Label>
-      <InputText
-        ref={innerRef}
-        id={id}
-        type={type}
-        placeholder={placeholderValue}
-      />
+      <TextareaText id={id} placeholder={placeholderValue} />
     </Container>
   )
 }

@@ -27,7 +27,7 @@ export const Signup = () => {
 
   return (
     <Container>
-      <Card padding="50px 30px" width="70%">
+      <Card padding="50px 30px" width="70%" maxWidth="600px">
         <Row margin="0 0 24px 0">
           <h1>Crie uma conta</h1>
         </Row>

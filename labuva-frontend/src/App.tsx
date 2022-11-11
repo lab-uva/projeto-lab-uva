@@ -8,6 +8,7 @@ import { darkTheme, lightTheme } from './styles/theme'
 import { Login } from './pages/login'
 import { Signup } from './pages/signup'
 import { Home } from './pages/home'
+import { CreateHomework } from './pages/create-homework'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: '/home',
     element: <Home />,
+  },
+  {
+    path: '/create-homework',
+    element: <CreateHomework />,
   },
 ])
 
