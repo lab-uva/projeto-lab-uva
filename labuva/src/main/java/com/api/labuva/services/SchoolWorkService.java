@@ -1,6 +1,5 @@
 package com.api.labuva.services;
 
-import com.api.labuva.dtos.SchoolWorkDto;
 import com.api.labuva.dtos.SchoolWorkDtoPut;
 import com.api.labuva.models.SchoolWorkModel;
 import com.api.labuva.repositories.SchoolWorkRepository;
