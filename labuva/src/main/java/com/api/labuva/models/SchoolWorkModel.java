@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
@@ -25,16 +24,9 @@ public class SchoolWorkModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false)
     private String schoolWorkName;
-
-    @Column(nullable = false)
     private String schoolWorkDescription;
-
-    @Column(nullable = false)
     private LocalDateTime createdAtDate;
-
-    @Column(nullable = false)
     private Date deliveryDate;
-//    private boolean isDone = false;
+    private boolean workIsDone;
 }
