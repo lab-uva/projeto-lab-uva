@@ -1,8 +1,12 @@
 package com.api.labuva.services;
 
+import com.api.labuva.dtos.SchoolWorkDtoIsDoneById;
+import com.api.labuva.dtos.SchoolWorkDtoPost;
 import com.api.labuva.dtos.SchoolWorkDtoPut;
 import com.api.labuva.models.SchoolWorkModel;
 import com.api.labuva.repositories.SchoolWorkRepository;
+import com.api.labuva.util.DateParsing;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,16 +18,19 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class SchoolWorkService {
     final SchoolWorkRepository schoolWorkRepository;
 
-    public SchoolWorkService(SchoolWorkRepository schoolWorkRepository) {
-        this.schoolWorkRepository = schoolWorkRepository;
-    }
-
     @Transactional
-    public SchoolWorkModel save(SchoolWorkModel schoolWorkModel) {
-        return schoolWorkRepository.save(schoolWorkModel);
+    public SchoolWorkModel save(SchoolWorkDtoPost schoolWorkDtoPost) {
+        return schoolWorkRepository.save(SchoolWorkModel.builder()
+                .schoolWorkName(schoolWorkDtoPost.getSchoolWorkName())
+                .schoolWorkDescription(schoolWorkDtoPost.getSchoolWorkDescription())
+                .deliveryDate(DateParsing.convertingStringToDate(schoolWorkDtoPost.getDeliveryDate()))
+                .createdAtDate(LocalDateTime.now(ZoneId.of("UTC")))
+                .workIsDone(false)
+                .build());
     }
 
     public List<SchoolWorkModel> findAll() {
@@ -41,10 +48,26 @@ public class SchoolWorkService {
 
     public void replace(SchoolWorkDtoPut schoolWorkDtoPut) {
         SchoolWorkModel savedSchoolWorkModel = findByIdOrThrowBadRequestException(schoolWorkDtoPut.getId());
-        SchoolWorkModel schoolWorkModel = SchoolWorkModel.builder().schoolWorkName(schoolWorkDtoPut.getSchoolWorkName())
-                        .schoolWorkDescription(schoolWorkDtoPut.getSchoolWorkDescription())
+        SchoolWorkModel schoolWorkModel = SchoolWorkModel.builder()
+                .schoolWorkName(schoolWorkDtoPut.getSchoolWorkName())
+                .schoolWorkDescription(schoolWorkDtoPut.getSchoolWorkDescription())
                 .id(schoolWorkDtoPut.getId())
                 .createdAtDate(LocalDateTime.now(ZoneId.of("UTC")))
+                .deliveryDate(DateParsing.convertingStringToDate(schoolWorkDtoPut.getDeliveryDate()))
+                .workIsDone(schoolWorkDtoPut.isWorkIsDone())
+                .build();
+        schoolWorkRepository.save(schoolWorkModel);
+    }
+
+    public void updateIsDoneById(SchoolWorkDtoIsDoneById schoolWorkDtoIsDoneById) {
+        SchoolWorkModel savedSchoolWorkModel = findByIdOrThrowBadRequestException(schoolWorkDtoIsDoneById.getId());
+        SchoolWorkModel schoolWorkModel = SchoolWorkModel.builder()
+                .schoolWorkName(savedSchoolWorkModel.getSchoolWorkName())
+                .schoolWorkDescription(savedSchoolWorkModel.getSchoolWorkDescription())
+                .id(savedSchoolWorkModel.getId())
+                .createdAtDate(LocalDateTime.now(ZoneId.of("UTC")))
+                .deliveryDate(savedSchoolWorkModel.getDeliveryDate())
+                .workIsDone(schoolWorkDtoIsDoneById.isWorkIsDone())
                 .build();
         schoolWorkRepository.save(schoolWorkModel);
     }
