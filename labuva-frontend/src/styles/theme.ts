@@ -4,7 +4,7 @@ export const lightTheme: DefaultTheme = {
   background: 'offwhite',
   titles: '#212121',
   text: '#2D3035',
-  textIsActive: '#0066FF',
+  textIsActive: '#999999',
 
   importanceDegree: {
     none: '#cccccc',
@@ -49,7 +49,7 @@ export const darkTheme: DefaultTheme = {
   background: '#22252A',
   titles: '#fff',
   text: '#FAFAFA',
-  textIsActive: '#2288FF',
+  textIsActive: '#999999',
 
   importanceDegree: {
     low: '#D4EADD',

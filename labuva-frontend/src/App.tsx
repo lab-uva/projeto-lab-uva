@@ -35,7 +35,7 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
-  const [theme, setTheme] = useState(false)
+  const [theme, setTheme] = useState(true)
 
   return (
     <ThemeProvider theme={theme ? darkTheme : lightTheme}>

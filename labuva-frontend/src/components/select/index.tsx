@@ -18,6 +18,14 @@ const customStyle = {
     border: '1px solid #ccc',
     boxShadow: 'none',
   }),
+  option: (provided: any) => ({
+    ...provided,
+    color: '#999999',
+  }),
+  singleValue: (provided: any) => ({
+    ...provided,
+    color: '#999999',
+  }),
 }
 
 export type Option = {

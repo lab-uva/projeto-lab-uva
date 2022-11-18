@@ -17,7 +17,7 @@ const TextareaText = styled.textarea`
     width: 100%;
     box-sizing: border-box;
     font-family: montserrat;
-    color: ${theme.text};
+    color: ${theme.textIsActive};
     font-size: 1rem;
     resize: vertical;
     font-family: Open-Sans, Helvetica, Sans-Serif;

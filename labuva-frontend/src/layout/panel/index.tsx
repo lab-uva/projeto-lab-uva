@@ -26,7 +26,7 @@ export const Panel = ({ children }: Props) => {
     <Box sx={{ display: 'flex' }}>
       <AppBar
         position="fixed"
-        color="inherit"
+        color="primary"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
@@ -34,7 +34,7 @@ export const Panel = ({ children }: Props) => {
       >
         <Toolbar>
           <IconButton
-            color="primary"
+            color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}

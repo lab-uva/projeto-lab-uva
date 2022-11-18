@@ -17,7 +17,7 @@ const InputText = styled.input`
     width: 100%;
     box-sizing: border-box;
     font-family: montserrat;
-    color: ${theme.text};
+    color: ${theme.textIsActive};
     font-size: 1rem;
     font-family: Open-Sans, Helvetica, Sans-Serif;
   `}
