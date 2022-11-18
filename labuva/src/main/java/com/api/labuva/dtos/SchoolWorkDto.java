@@ -8,7 +8,8 @@ import javax.validation.constraints.NotBlank;
 public class SchoolWorkDto {
 
     @NotBlank
-    private String SchoolWorkName;
+    private String schoolWorkName;
     @NotBlank
-    private String SchoolWorkDescription;
+    private String schoolWorkDescription;
+
 }

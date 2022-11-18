@@ -2,8 +2,13 @@ package com.api.labuva.services;
 
 import com.api.labuva.dtos.SchoolWorkDto;
 import com.api.labuva.dtos.SchoolWorkDtoPut;
+import com.api.labuva.dtos.UserDto;
 import com.api.labuva.models.SchoolWorkModel;
 import com.api.labuva.repositories.SchoolWorkRepository;
+import com.api.labuva.repositories.UserRepository;
+import lombok.Data;
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,12 +20,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Data
 public class SchoolWorkService {
     final SchoolWorkRepository schoolWorkRepository;
 
-    public SchoolWorkService(SchoolWorkRepository schoolWorkRepository) {
-        this.schoolWorkRepository = schoolWorkRepository;
-    }
+    final UserRepository userRepository;
 
     @Transactional
     public SchoolWorkModel save(SchoolWorkModel schoolWorkModel) {
@@ -48,5 +52,20 @@ public class SchoolWorkService {
                 .createdAtDate(LocalDateTime.now(ZoneId.of("UTC")))
                 .build();
         schoolWorkRepository.save(schoolWorkModel);
+    }
+
+    public UserDto signup(UserDto userDto) {
+
+        UserDto existUser = userRepository.findUserByName(userDto.getUserName());
+
+        if (existUser != null){
+            throw new Error("User already exists");
+        }
+
+        UserDto createdUser = userRepository.save(userDto);
+
+        return createdUser;
+
+
     }
 }

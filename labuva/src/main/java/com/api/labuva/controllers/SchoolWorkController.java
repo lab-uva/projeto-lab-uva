@@ -2,9 +2,11 @@ package com.api.labuva.controllers;
 
 import com.api.labuva.dtos.SchoolWorkDto;
 import com.api.labuva.dtos.SchoolWorkDtoPut;
+import com.api.labuva.dtos.UserDto;
 import com.api.labuva.models.SchoolWorkModel;
 import com.api.labuva.services.SchoolWorkService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +28,7 @@ public class SchoolWorkController {
         this.schoolWorkService = schoolWorkService;
     }
 
-    @PostMapping
+    @PostMapping(path = "/saveSchoolWork")
     public ResponseEntity<Object> saveSchoolWork(@RequestBody @Valid SchoolWorkDto schoolWorkDto) {
         var schoolWorkModel = new SchoolWorkModel();
         BeanUtils.copyProperties(schoolWorkDto, schoolWorkModel);
@@ -55,4 +57,14 @@ public class SchoolWorkController {
         schoolWorkService.replace(schoolWorkDtoPut);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping(path = "/signup")
+    public ResponseEntity<UserDto> signup(@RequestParam UserDto userDto){
+        schoolWorkService.signup(userDto);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+
+
 }
