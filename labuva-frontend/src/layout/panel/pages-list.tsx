@@ -1,4 +1,4 @@
-import { Home, PlusOne } from '@mui/icons-material'
+import { Home, AddBox } from '@mui/icons-material'
 import {
   Divider,
   List,
@@ -38,7 +38,7 @@ export const PageList = () => {
         <ListItem key={pagesLinks[1].page} disablePadding>
           <ListItemButton onClick={() => navigate('/create-homework')}>
             <ListItemIcon>
-              <PlusOne color="primary" />
+              <AddBox color="primary" />
             </ListItemIcon>
             <p>{pagesLinks[1].page}</p>
           </ListItemButton>

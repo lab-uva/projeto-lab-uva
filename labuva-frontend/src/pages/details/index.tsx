@@ -71,6 +71,17 @@ export const Details = () => {
     navigate('/home')
   }
 
+  const onDelete = () => {
+    fetch(`http://localhost:8080/school-work/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    navigate('/home')
+  }
+
   return (
     <Panel>
       <Container>
@@ -105,7 +116,12 @@ export const Details = () => {
           <p>{dateFormat(value.createdAtDate)}</p>
         </Column>
         <Row wrap="wrap">
-          <ButtonIcon margin="24px 10px 0 0" iconName="delete" error>
+          <ButtonIcon
+            margin="24px 10px 0 0"
+            iconName="delete"
+            error
+            onClick={() => onDelete()}
+          >
             Apagar
           </ButtonIcon>
           <ButtonIcon
