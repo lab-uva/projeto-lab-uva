@@ -27,7 +27,7 @@ const Label = styled.label`
   margin-bottom: 8px;
 `
 
-type InputTypes = 'text' | 'password' | 'email' | 'search' | 'date'
+type InputTypes = 'text' | 'password' | 'email' | 'search'
 
 export type Props = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -48,6 +48,7 @@ export const Input = ({
   margin,
   type = 'text',
   placeholderValue,
+  ...props
 }: Props) => {
   const innerRef = useRef<HTMLInputElement>(null)
 
@@ -55,6 +56,7 @@ export const Input = ({
     <Container width={width} margin={margin}>
       <Label htmlFor={label}>{label}</Label>
       <InputText
+        {...props}
         ref={innerRef}
         id={id}
         type={type}

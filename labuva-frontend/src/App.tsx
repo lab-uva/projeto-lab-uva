@@ -9,6 +9,7 @@ import { Login } from './pages/login'
 import { Signup } from './pages/signup'
 import { Home } from './pages/home'
 import { CreateHomework } from './pages/create-homework'
+import { Details } from './pages/details'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: '/create-homework',
     element: <CreateHomework />,
+  },
+  {
+    path: '/details/:id',
+    element: <Details />,
   },
 ])
 

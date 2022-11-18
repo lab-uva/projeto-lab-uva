@@ -1,16 +1,19 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Icon } from '@mui/material'
+import { Loader } from '../loader'
 
 const Container = styled.div<{
   maxWidth?: string
   width?: string
   margin?: string
   secondary?: boolean
+  error?: boolean
 }>`
   ${({
     margin = '0',
     secondary,
+    error,
     width = '100%',
     theme,
     maxWidth = '200px',
@@ -71,8 +74,31 @@ const Container = styled.div<{
         `
       }
     })()}
+
+    ${(() => {
+      if (error) {
+        return css`
+          color: ${theme.button.error.color};
+          background-color: ${theme.button.error.background};
+
+          &:hover {
+            background-color: ${theme.button.error.hover};
+          }
+
+          & > button {
+            color: ${theme.button.error.color};
+          }
+
+          & > span {
+            color: ${theme.button.error.color};
+          }
+        `
+      }
+    })()}
   `}
 `
+
+type TypeButton = 'submit' | 'button'
 
 type Props = {
   children: React.ReactNode
@@ -81,6 +107,9 @@ type Props = {
   width?: string
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   secondary?: boolean
+  error?: boolean
+  type?: TypeButton
+  isLoading?: boolean
 }
 
 export const ButtonIcon = ({
@@ -89,10 +118,15 @@ export const ButtonIcon = ({
   margin,
   onClick,
   secondary,
+  error,
   iconName,
+  type,
+  isLoading,
 }: Props) => (
-  <Container margin={margin} width={width} secondary={secondary}>
-    <Icon>{iconName}</Icon>
-    <button onClick={onClick}>{children}</button>
+  <Container margin={margin} width={width} secondary={secondary} error={error}>
+    {isLoading ? <Loader /> : <Icon>{iconName}</Icon>}
+    <button onClick={onClick} type={type}>
+      {children}
+    </button>
   </Container>
 )

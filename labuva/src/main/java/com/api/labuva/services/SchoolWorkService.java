@@ -30,6 +30,7 @@ public class SchoolWorkService {
                 .deliveryDate(DateParsing.convertingStringToDate(schoolWorkDtoPost.getDeliveryDate()))
                 .createdAtDate(LocalDateTime.now(ZoneId.of("UTC")))
                 .workIsDone(false)
+                .importanceDegree(schoolWorkDtoPost.getImportanceDegree())
                 .build());
     }
 
@@ -55,6 +56,7 @@ public class SchoolWorkService {
                 .createdAtDate(LocalDateTime.now(ZoneId.of("UTC")))
                 .deliveryDate(DateParsing.convertingStringToDate(schoolWorkDtoPut.getDeliveryDate()))
                 .workIsDone(schoolWorkDtoPut.isWorkIsDone())
+                .importanceDegree(schoolWorkDtoPut.getImportanceDegree())
                 .build();
         schoolWorkRepository.save(schoolWorkModel);
     }
@@ -68,6 +70,7 @@ public class SchoolWorkService {
                 .createdAtDate(LocalDateTime.now(ZoneId.of("UTC")))
                 .deliveryDate(savedSchoolWorkModel.getDeliveryDate())
                 .workIsDone(schoolWorkDtoIsDoneById.isWorkIsDone())
+                .importanceDegree(savedSchoolWorkModel.getImportanceDegree())
                 .build();
         schoolWorkRepository.save(schoolWorkModel);
     }

@@ -15,4 +15,5 @@ public class SchoolWorkDtoPut {
     private String schoolWorkDescription;
     private String deliveryDate;
     private boolean workIsDone;
+    private String importanceDegree;
 }

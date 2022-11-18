@@ -1,5 +1,5 @@
 import React from 'react'
-import Select from 'react-select'
+import Select, { SetValueAction } from 'react-select'
 import styled from 'styled-components'
 
 const SelectComponent = styled(Select)`
@@ -20,7 +20,7 @@ const customStyle = {
   }),
 }
 
-type Option = {
+export type Option = {
   value: string
   label: string
 }
@@ -29,12 +29,24 @@ type Props = {
   options: Option[]
   defaultValue?: Option
   label?: string
+  onChange(selected: any): void
+  value?: Option
 }
 
-export const SelectOne = ({ options, defaultValue, label }: Props) => (
+export const SelectOne = ({
+  options,
+  defaultValue,
+  label,
+  onChange,
+  value,
+  ...props
+}: Props) => (
   <>
     <Label htmlFor={label}>{label}</Label>
     <SelectComponent
+      {...props}
+      onChange={onChange}
+      value={value}
       options={options}
       styles={customStyle}
       defaultValue={defaultValue}

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import { ButtonIcon } from '../../components/button-icon'
 import { ItemList } from '../../components/item-list'
@@ -16,12 +17,15 @@ const Container = styled.div`
 `
 
 export const Home = () => {
+  const [isDone, setIsDone] = useState<boolean>()
+
   const { data, isLoading, error } = useFetch(
     'http://localhost:8080/school-work',
     { method: 'GET' },
+    isDone,
   )
 
-  if (!data)
+  if (!data?.length)
     return (
       <Panel>
         <Container>
@@ -41,10 +45,13 @@ export const Home = () => {
           <ItemList
             margin="24px 0 0 0"
             key={item.id}
-            importanceDegree="none"
+            importanceDegree={item.importanceDegree}
             title={item.schoolWorkName}
-            finalDate={dateFormat(item.createdAtDate)} // mudar para data final
+            finalDate={dateFormat(item.deliveryDate)} // mudar para data final
             description={item.schoolWorkDescription}
+            id={item.id}
+            workIsDone={item.workIsDone}
+            setIsDone={setIsDone}
           />
         ))}
       </Container>

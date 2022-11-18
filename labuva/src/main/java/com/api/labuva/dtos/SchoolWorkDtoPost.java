@@ -16,4 +16,6 @@ public class SchoolWorkDtoPost {
     private String SchoolWorkDescription;
     @NotEmpty
     private String deliveryDate;
+    @NotEmpty
+    private String importanceDegree;
 }

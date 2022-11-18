@@ -8,7 +8,7 @@ const Container = styled.div<{ margin?: string; width?: string }>`
   `}
 `
 
-const TextareaText = styled.textarea`
+const DatepickerInput = styled.input`
   ${({ theme }) => css`
     padding: 15px;
     border: 1px solid #ccc;
@@ -19,7 +19,6 @@ const TextareaText = styled.textarea`
     font-family: montserrat;
     color: ${theme.text};
     font-size: 1rem;
-    resize: vertical;
     font-family: Open-Sans, Helvetica, Sans-Serif;
   `}
 `
@@ -29,28 +28,22 @@ const Label = styled.label`
 `
 
 export type Props = Omit<
-  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  React.InputHTMLAttributes<HTMLInputElement>,
   'type' | 'css'
 > & {
   id?: string
   label?: string
   width?: string
   margin?: string
-  placeholderValue?: string
 }
 
-export const Textarea = ({
-  id,
-  label,
-  width,
-  margin,
-  placeholderValue,
-  ...props
-}: Props) => {
+export const DatePicker = ({ id, label, width, margin, ...props }: Props) => {
+  const innerRef = useRef<HTMLInputElement>(null)
+
   return (
     <Container width={width} margin={margin}>
       <Label htmlFor={label}>{label}</Label>
-      <TextareaText id={id} placeholder={placeholderValue} {...props} />
+      <DatepickerInput ref={innerRef} id={id} type="date" {...props} />
     </Container>
   )
 }

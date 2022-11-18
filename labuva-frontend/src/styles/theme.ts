@@ -34,6 +34,14 @@ export const lightTheme: DefaultTheme = {
       active: '#45464F',
       disabled: '#34353C',
     },
+
+    error: {
+      background: '#FED8D8',
+      color: '#C62320',
+      hover: '#FED8D9',
+      active: '#B41513',
+      disabled: '#B41513',
+    },
   },
 }
 
@@ -69,6 +77,14 @@ export const darkTheme: DefaultTheme = {
       hover: '#6B6F75',
       active: '#45464F',
       disabled: '#34353C',
+    },
+
+    error: {
+      background: '#FED8D8',
+      color: '#C62320',
+      hover: '#FED8D9',
+      active: '#B41513',
+      disabled: '#B41513',
     },
   },
 }

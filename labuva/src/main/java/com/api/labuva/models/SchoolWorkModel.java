@@ -29,4 +29,5 @@ public class SchoolWorkModel implements Serializable {
     private LocalDateTime createdAtDate;
     private Date deliveryDate;
     private boolean workIsDone;
+    private String importanceDegree;
 }
