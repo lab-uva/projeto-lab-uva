@@ -30,4 +30,9 @@ public class SchoolWorkModel implements Serializable {
     private Date deliveryDate;
     private boolean workIsDone;
     private String importanceDegree;
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false, foreignKey = @ForeignKey(name="fk_user_id"))
+    private UserModel userId;
+
 }

@@ -1,5 +1,6 @@
 package com.api.labuva.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -33,6 +32,17 @@ public class UserModel implements GrantedAuthority,UserDetails {
 
     @Column(nullable = false)
     private String role;
+
+    @OneToMany(mappedBy = "userId", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<SchoolWorkModel> schoolWorkModel = new ArrayList<SchoolWorkModel>();
+
+    public List<SchoolWorkModel> getSchoolWorkModel() {
+        return schoolWorkModel;
+    }
+
+    public void setSchoolWorkModel(List<SchoolWorkModel> schoolWorkModel) {
+        this.schoolWorkModel = schoolWorkModel;
+    }
 
     @Override
     public String getAuthority() {
