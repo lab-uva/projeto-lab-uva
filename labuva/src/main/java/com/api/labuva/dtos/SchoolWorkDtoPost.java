@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import java.util.UUID;
 
 @Data
 public class SchoolWorkDtoPost {
@@ -17,6 +18,6 @@ public class SchoolWorkDtoPost {
     private String deliveryDate;
     @NotEmpty
     private String importanceDegree;
-    @NotBlank
-    private UserModel userId;
+//    @NotBlank
+//    private UUID userId;
 }

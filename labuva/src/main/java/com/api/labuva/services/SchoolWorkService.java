@@ -6,6 +6,7 @@ import com.api.labuva.dtos.SchoolWorkDtoPost;
 import com.api.labuva.dtos.SchoolWorkDtoPut;
 import com.api.labuva.models.SchoolWorkModel;
 import com.api.labuva.repositories.SchoolWorkRepository;
+import com.api.labuva.repositories.UserRepository;
 import com.api.labuva.util.DateParsing;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,10 +23,12 @@ import java.util.UUID;
 @AllArgsConstructor
 public class SchoolWorkService {
     final SchoolWorkRepository schoolWorkRepository;
+    private final UserSecurityService userSecurityService;
 
     @Transactional
     public SchoolWorkModel save(SchoolWorkDtoPost schoolWorkDtoPost) {
         return schoolWorkRepository.save(SchoolWorkModel.builder()
+//                        .userId(userSecurityService.findByIdOrThrowBadRequestException(schoolWorkDtoPost.getUserId()))
                 .schoolWorkName(schoolWorkDtoPost.getSchoolWorkName())
                 .schoolWorkDescription(schoolWorkDtoPost.getSchoolWorkDescription())
                 .deliveryDate(DateParsing.convertingStringToDate(schoolWorkDtoPost.getDeliveryDate()))
