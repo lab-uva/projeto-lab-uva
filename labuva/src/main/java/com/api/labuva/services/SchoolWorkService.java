@@ -9,7 +9,11 @@ import com.api.labuva.repositories.SchoolWorkRepository;
 import com.api.labuva.repositories.UserRepository;
 import com.api.labuva.util.DateParsing;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -25,10 +29,13 @@ public class SchoolWorkService {
     final SchoolWorkRepository schoolWorkRepository;
     private final UserSecurityService userSecurityService;
 
+
     @Transactional
     public SchoolWorkModel save(SchoolWorkDtoPost schoolWorkDtoPost) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
         return schoolWorkRepository.save(SchoolWorkModel.builder()
-//                        .userId(userSecurityService.findByIdOrThrowBadRequestException(schoolWorkDtoPost.getUserId()))
+                        .userId(userSecurityService.findByName(username))
                 .schoolWorkName(schoolWorkDtoPost.getSchoolWorkName())
                 .schoolWorkDescription(schoolWorkDtoPost.getSchoolWorkDescription())
                 .deliveryDate(DateParsing.convertingStringToDate(schoolWorkDtoPost.getDeliveryDate()))
@@ -39,6 +46,7 @@ public class SchoolWorkService {
     }
 
     public List<SchoolWorkModel> findAll() {
+
         return schoolWorkRepository.findAll();
     }
 

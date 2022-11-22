@@ -60,6 +60,11 @@ public class UserSecurityService {
         userRepository.delete(findByIdOrThrowBadRequestException(id));
     }
 
+    public UserModel findByName(String name) {
+        return userRepository.findByUsername(name)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, " Not found"));
+    }
+
 
 
 }
