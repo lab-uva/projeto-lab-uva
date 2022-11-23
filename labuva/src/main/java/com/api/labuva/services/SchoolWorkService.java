@@ -1,18 +1,14 @@
 package com.api.labuva.services;
 
-import com.api.labuva.config.security.UserDetailsServiceImpl;
 import com.api.labuva.dtos.SchoolWorkDtoIsDoneById;
 import com.api.labuva.dtos.SchoolWorkDtoPost;
 import com.api.labuva.dtos.SchoolWorkDtoPut;
 import com.api.labuva.models.SchoolWorkModel;
+import com.api.labuva.models.UserModel;
 import com.api.labuva.repositories.SchoolWorkRepository;
-import com.api.labuva.repositories.UserRepository;
 import com.api.labuva.util.DateParsing;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -35,7 +31,7 @@ public class SchoolWorkService {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         return schoolWorkRepository.save(SchoolWorkModel.builder()
-                        .userId(userSecurityService.findByName(username))
+                        .userModel(userSecurityService.findByName(username))
                 .schoolWorkName(schoolWorkDtoPost.getSchoolWorkName())
                 .schoolWorkDescription(schoolWorkDtoPost.getSchoolWorkDescription())
                 .deliveryDate(DateParsing.convertingStringToDate(schoolWorkDtoPost.getDeliveryDate()))
@@ -46,8 +42,12 @@ public class SchoolWorkService {
     }
 
     public List<SchoolWorkModel> findAll() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserModel userModel = userSecurityService.findByName(username);
+        List<SchoolWorkModel> schoolWorkModelList = schoolWorkRepository.findAll();
 
-        return schoolWorkRepository.findAll();
+        schoolWorkModelList.removeIf(schoolWorkModel -> !schoolWorkModel.getUserModel().getUserId().toString().equals(userModel.getUserId().toString()));
+        return schoolWorkModelList;
     }
 
     public SchoolWorkModel findByIdOrThrowBadRequestException(UUID id) {

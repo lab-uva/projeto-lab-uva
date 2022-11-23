@@ -33,6 +33,6 @@ public class SchoolWorkModel implements Serializable {
 
     @ManyToOne
 //    @JoinColumn(name="user_id", nullable = false, foreignKey = @ForeignKey(name="fk_user_id"))
-    private UserModel userId;
+    private UserModel userModel;
 
 }
