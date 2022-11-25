@@ -59,4 +59,9 @@ public class UserController {
     public ResponseEntity<Object> getUserById(@PathVariable UUID id) {
         return ResponseEntity.ok(userSecurityService.findByIdOrThrowBadRequestException(id));
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<Object> findMe() {
+        return ResponseEntity.ok(userSecurityService.findMe());
+    }
 }

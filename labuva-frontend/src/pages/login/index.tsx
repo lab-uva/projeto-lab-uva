@@ -1,11 +1,12 @@
-import React from 'react'
+import { useState, useContext } from 'react'
 import { Card } from '../../components/card'
 import styled from 'styled-components'
 import { Row } from '../../components/forms'
 import { Input } from '../../components/input'
-import { useForm } from 'react-hook-form'
 import { Button } from '../../components/button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { encode } from 'base-64'
+import UserContext, { UserState } from '../../contexts/user'
 
 const Container = styled.div`
   width: 100%;
@@ -16,13 +17,49 @@ const Container = styled.div`
   flex-direction: column;
 `
 
-type LoginInput = {
-  email: string
-  password: string
-}
-
 export const Login = () => {
-  const { register } = useForm<LoginInput>()
+  const { setUser } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState(false)
+
+  const onSubmit = async () => {
+    try {
+      await fetch('http://localhost:8080/user/me', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Basic ${encode(username + ':' + password)}`,
+        },
+      }).then(async (response) => {
+        const json: UserState = await response.json()
+
+        console.log(json)
+        setUser({
+          accountNonExpired: json.accountNonExpired,
+          accountNonLocked: json.accountNonExpired,
+          authorities: json.authorities,
+          authority: json.authority,
+          credentialsNonExpired: json.credentialsNonExpired,
+          enabled: json.enabled,
+          password: json.password,
+          role: json.role,
+          userId: json.userId,
+          username: json.username,
+        })
+
+        localStorage.setItem('user', JSON.stringify(json))
+
+        const status = response.status
+
+        status === 200 ? navigate('/home') : setError(true)
+      })
+    } catch (error) {
+      setError(true)
+    }
+  }
 
   return (
     <Container>
@@ -30,9 +67,21 @@ export const Login = () => {
         <Row margin="0 0 24px 0">
           <h1>Login</h1>
         </Row>
-        <Input type="email" label="Usuário" {...register('email')} />
-        <Input type="password" label="Senha" {...register('password')} />
-        <Button margin="16px 0" onClick={() => console.log('logado')}>
+        <Input
+          type="text"
+          label="Usuário"
+          value={username}
+          onChange={({ target }) => setUsername(target.value)}
+          errorMessage="Usuário ou senha inválido."
+          hasError={error ? true : false}
+        />
+        <Input
+          type="password"
+          label="Senha"
+          value={password}
+          onChange={({ target }) => setPassword(target.value)}
+        />
+        <Button margin="16px 0" onClick={() => onSubmit()}>
           Fazer login
         </Button>
         <Row justifyContent="center">

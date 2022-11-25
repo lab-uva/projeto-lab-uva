@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Card } from '../../components/card'
 import styled from 'styled-components'
 import { Row } from '../../components/forms'
 import { Input } from '../../components/input'
-import { useForm } from 'react-hook-form'
 import { Button } from '../../components/button'
 import { useNavigate } from 'react-router-dom'
 
@@ -14,11 +13,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `
-
-type LoginInput = {
-  username: string
-  password: string
-}
 
 export const Signup = () => {
   const navigate = useNavigate()

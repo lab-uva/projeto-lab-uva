@@ -1,4 +1,5 @@
-import { Home, AddBox } from '@mui/icons-material'
+import { useContext } from 'react'
+import { Home, AddBox, ExitToApp } from '@mui/icons-material'
 import {
   Divider,
   List,
@@ -10,6 +11,7 @@ import {
 import styled, { css } from 'styled-components'
 import { pagesLinks } from './pages-links'
 import { useNavigate } from 'react-router-dom'
+import UserContext from '../../contexts/user'
 
 const Area = styled.div`
   ${({ theme }) => css`
@@ -19,7 +21,14 @@ const Area = styled.div`
 `
 
 export const PageList = () => {
+  const { clearUserContext } = useContext(UserContext)
   const navigate = useNavigate()
+
+  const handleLogout = () => {
+    localStorage.clear()
+    clearUserContext()
+    navigate('/')
+  }
 
   return (
     <Area>
@@ -41,6 +50,19 @@ export const PageList = () => {
               <AddBox color="primary" />
             </ListItemIcon>
             <p>{pagesLinks[1].page}</p>
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem key={pagesLinks[2].page} disablePadding>
+          <ListItemButton
+            onClick={() => {
+              handleLogout()
+            }}
+          >
+            <ListItemIcon>
+              <ExitToApp color="primary" />
+            </ListItemIcon>
+            <p>{pagesLinks[2].page}</p>
           </ListItemButton>
         </ListItem>
       </List>

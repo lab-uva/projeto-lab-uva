@@ -33,9 +33,6 @@ public class UserModel implements GrantedAuthority,UserDetails {
     @Column(nullable = false)
     private String role;
 
-////    @OneToMany(mappedBy = "userId", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<SchoolWorkModel> schoolWorkModel = new ArrayList<SchoolWorkModel>();
-
     @Override
     public String getAuthority() {
         return this.role;
