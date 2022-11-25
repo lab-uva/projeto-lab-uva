@@ -79,9 +79,8 @@ export const CreateHomework = () => {
       })
       .finally(() => {
         setIsLoading(false)
+        navigate('/home')
       })
-
-    navigate('/home')
   }
 
   return (

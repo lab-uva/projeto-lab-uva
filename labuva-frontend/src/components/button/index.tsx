@@ -48,6 +48,7 @@ type Props = {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   secondary?: boolean
   maxWidth?: string
+  type?: 'button' | 'submit'
 }
 
 export const Button = ({
@@ -56,12 +57,14 @@ export const Button = ({
   onClick,
   secondary,
   maxWidth,
+  type,
 }: Props) => (
   <ButtonStyle
     margin={margin}
     onClick={onClick}
     secondary={secondary}
     maxWidth={maxWidth}
+    type={type}
   >
     {children}
   </ButtonStyle>

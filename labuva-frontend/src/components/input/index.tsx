@@ -27,6 +27,12 @@ const Label = styled.label`
   margin-bottom: 8px;
 `
 
+const ErrorMessage = styled.p`
+  ${({ theme }) => css`
+    color: ${theme.button.error.color};
+  `}
+`
+
 type InputTypes = 'text' | 'password' | 'email' | 'search'
 
 export type Props = Omit<
@@ -38,6 +44,8 @@ export type Props = Omit<
   width?: string
   margin?: string
   type: InputTypes
+  hasError?: boolean
+  errorMessage?: string
   placeholderValue?: string
 }
 
@@ -46,6 +54,8 @@ export const Input = ({
   label,
   width,
   margin,
+  hasError,
+  errorMessage,
   type = 'text',
   placeholderValue,
   ...props
@@ -62,6 +72,9 @@ export const Input = ({
         type={type}
         placeholder={placeholderValue}
       />
+      {hasError && (
+        <ErrorMessage>{errorMessage || 'Ocorreu um erro.'}</ErrorMessage>
+      )}
     </Container>
   )
 }
