@@ -1,11 +1,11 @@
 package com.api.labuva.dtos;
 
+import com.api.labuva.models.UserModel;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 public class SchoolWorkDtoPost {
@@ -18,4 +18,6 @@ public class SchoolWorkDtoPost {
     private String deliveryDate;
     @NotEmpty
     private String importanceDegree;
+//    @NotBlank
+//    private UUID userId;
 }

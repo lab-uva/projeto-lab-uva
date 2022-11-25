@@ -4,10 +4,12 @@ import com.api.labuva.dtos.SchoolWorkDtoIsDoneById;
 import com.api.labuva.dtos.SchoolWorkDtoPost;
 import com.api.labuva.dtos.SchoolWorkDtoPut;
 import com.api.labuva.models.SchoolWorkModel;
+import com.api.labuva.models.UserModel;
 import com.api.labuva.repositories.SchoolWorkRepository;
 import com.api.labuva.util.DateParsing;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -21,10 +23,15 @@ import java.util.UUID;
 @AllArgsConstructor
 public class SchoolWorkService {
     final SchoolWorkRepository schoolWorkRepository;
+    private final UserSecurityService userSecurityService;
+
 
     @Transactional
     public SchoolWorkModel save(SchoolWorkDtoPost schoolWorkDtoPost) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
         return schoolWorkRepository.save(SchoolWorkModel.builder()
+                        .userModel(userSecurityService.findByName(username))
                 .schoolWorkName(schoolWorkDtoPost.getSchoolWorkName())
                 .schoolWorkDescription(schoolWorkDtoPost.getSchoolWorkDescription())
                 .deliveryDate(DateParsing.convertingStringToDate(schoolWorkDtoPost.getDeliveryDate()))
@@ -35,7 +42,12 @@ public class SchoolWorkService {
     }
 
     public List<SchoolWorkModel> findAll() {
-        return schoolWorkRepository.findAll();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserModel userModel = userSecurityService.findByName(username);
+        List<SchoolWorkModel> schoolWorkModelList = schoolWorkRepository.findAll();
+
+        schoolWorkModelList.removeIf(schoolWorkModel -> !schoolWorkModel.getUserModel().getUserId().toString().equals(userModel.getUserId().toString()));
+        return schoolWorkModelList;
     }
 
     public SchoolWorkModel findByIdOrThrowBadRequestException(UUID id) {
