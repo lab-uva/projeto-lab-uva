@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import { encode } from 'base-64'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled, { css } from 'styled-components'
-import { useFetch } from '../../pages/_hooks/use-fetch'
+import UserContext from '../../contexts/user'
 import { Button } from '../button'
 import { ButtonIcon } from '../button-icon'
 import { Column, Row } from '../forms'
@@ -93,6 +94,7 @@ export const ItemList = ({
   workIsDone,
   setIsDone,
 }: Props) => {
+  const { setUser, userState, userPass } = useContext(UserContext)
   const navigate = useNavigate()
 
   const handleCheckWork = async () => {
@@ -104,6 +106,7 @@ export const ItemList = ({
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Basic ${encode(userState.username + ':' + userPass)}`,
       },
       body: JSON.stringify(values),
     })

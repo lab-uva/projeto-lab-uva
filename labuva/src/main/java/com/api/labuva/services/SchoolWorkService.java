@@ -74,6 +74,8 @@ public class SchoolWorkService {
     }
 
     public void updateIsDoneById(SchoolWorkDtoIsDoneById schoolWorkDtoIsDoneById) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
         SchoolWorkModel savedSchoolWorkModel = findByIdOrThrowBadRequestException(schoolWorkDtoIsDoneById.getId());
         SchoolWorkModel schoolWorkModel = SchoolWorkModel.builder()
                 .schoolWorkName(savedSchoolWorkModel.getSchoolWorkName())
@@ -83,6 +85,7 @@ public class SchoolWorkService {
                 .deliveryDate(savedSchoolWorkModel.getDeliveryDate())
                 .workIsDone(schoolWorkDtoIsDoneById.isWorkIsDone())
                 .importanceDegree(savedSchoolWorkModel.getImportanceDegree())
+                .userModel(userSecurityService.findByName(username))
                 .build();
         schoolWorkRepository.save(schoolWorkModel);
     }
