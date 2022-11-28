@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { Card } from '../../components/card'
 import styled from 'styled-components'
 import { Row } from '../../components/forms'
@@ -18,12 +18,13 @@ const Container = styled.div`
 `
 
 export const Login = () => {
-  const { setUser } = useContext(UserContext)
+  const { setUser, userState, setPass } = useContext(UserContext)
   const navigate = useNavigate()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
+  const [auth, setAuth] = useState(false)
 
   const onSubmit = async () => {
     try {
@@ -35,8 +36,8 @@ export const Login = () => {
         },
       }).then(async (response) => {
         const json: UserState = await response.json()
+        localStorage.setItem('user', JSON.stringify(json))
 
-        console.log(json)
         setUser({
           accountNonExpired: json.accountNonExpired,
           accountNonLocked: json.accountNonExpired,
@@ -44,22 +45,32 @@ export const Login = () => {
           authority: json.authority,
           credentialsNonExpired: json.credentialsNonExpired,
           enabled: json.enabled,
-          password: json.password,
+          password: '',
           role: json.role,
           userId: json.userId,
           username: json.username,
         })
 
-        localStorage.setItem('user', JSON.stringify(json))
-
         const status = response.status
 
-        status === 200 ? navigate('/home') : setError(true)
+        if (status === 200) {
+          setAuth(true)
+          setPass(password)
+        } else {
+          setError(true)
+        }
       })
     } catch (error) {
       setError(true)
+      console.error('error: login blocked.')
     }
   }
+
+  useEffect(() => {
+    if (userState.enabled) {
+      navigate('/home')
+    }
+  }, [auth])
 
   return (
     <Container>

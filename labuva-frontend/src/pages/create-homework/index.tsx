@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { Card } from '../../components/card'
 import { Input } from '../../components/input'
@@ -10,6 +10,8 @@ import { Row } from '../../components/forms'
 import { DatePicker } from '../../components/datepicker'
 import { dateFormat } from '../../utils/date-formatter'
 import { useNavigate } from 'react-router-dom'
+import { encode } from 'base-64'
+import UserContext from '../../contexts/user'
 
 const Container = styled.div`
   width: 100%;
@@ -39,6 +41,7 @@ const importanceOptions: Option[] = [
 ]
 
 export const CreateHomework = () => {
+  const { userState, userPass } = useContext(UserContext)
   const navigate = useNavigate()
 
   const [deliveryDate, setDeliveryDate] = useState('')
@@ -67,6 +70,7 @@ export const CreateHomework = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Basic ${encode(userState.username + ':' + userPass)}`,
       },
       body: JSON.stringify(values),
     })

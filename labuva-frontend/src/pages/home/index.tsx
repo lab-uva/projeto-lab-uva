@@ -18,7 +18,7 @@ const Container = styled.div`
 `
 
 export const Home = () => {
-  const { setUser, userState } = useContext(UserContext)
+  const { setUser, userState, userPass } = useContext(UserContext)
   const [isDone, setIsDone] = useState<boolean>()
 
   useEffect(() => {
@@ -36,9 +36,7 @@ export const Home = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${encode(
-          userState.username + ':' + userState.password, // decodificar senha ex.: 12345
-        )}`,
+        Authorization: `Basic ${encode(userState.username + ':' + userPass)}`,
       },
     },
     isDone,

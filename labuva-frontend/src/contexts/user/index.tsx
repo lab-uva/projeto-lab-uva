@@ -16,6 +16,8 @@ export type UserState = {
 type UserContextProps = {
   userState: UserState
   setUser: Dispatch<React.SetStateAction<UserState>>
+  userPass: string
+  setPass: Dispatch<React.SetStateAction<string>>
   clearUserContext: () => void
 }
 
@@ -35,6 +37,8 @@ const defaultValues = {
 const UserContext = createContext<UserContextProps>({
   userState: defaultValues,
   setUser: () => {},
+  userPass: '',
+  setPass: () => {},
   clearUserContext: () => {},
 })
 
@@ -44,11 +48,14 @@ type Props = {
 
 const UserContextProvider = ({ children }: Props) => {
   const [userState, setUser] = useState<UserState>(defaultValues)
+  const [userPass, setPass] = useState('')
 
   const clearUserContext = () => setUser(defaultValues)
 
   return (
-    <UserContext.Provider value={{ userState, setUser, clearUserContext }}>
+    <UserContext.Provider
+      value={{ userState, setUser, userPass, setPass, clearUserContext }}
+    >
       {children}
     </UserContext.Provider>
   )
