@@ -1,3 +1,5 @@
+import { encode } from 'base-64'
+import { useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { Button } from '../../components/button'
@@ -5,6 +7,7 @@ import { ButtonIcon } from '../../components/button-icon'
 import { Column, Row } from '../../components/forms'
 import { Color } from '../../components/item-list'
 import { NoResultsList } from '../../components/no-results-list'
+import UserContext from '../../contexts/user'
 import { Panel } from '../../layout/panel'
 import { dateFormat } from '../../utils/date-formatter'
 import { useFetch } from '../_hooks/use-fetch'
@@ -29,13 +32,17 @@ type Data = {
 }
 
 export const Details = () => {
+  const { userState, userPass } = useContext(UserContext)
   const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
 
-  const { data, isLoading, error } = useFetch(
-    `http://localhost:8080/school-work/${id}`,
-    { method: 'GET' },
-  )
+  const { data, error } = useFetch(`http://localhost:8080/school-work/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Basic ${encode(userState.username + ':' + userPass)}`,
+    },
+  })
 
   if (!data)
     return (
@@ -59,6 +66,7 @@ export const Details = () => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Basic ${encode(userState.username + ':' + userPass)}`,
       },
       body: JSON.stringify(values),
     })
@@ -76,6 +84,7 @@ export const Details = () => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Basic ${encode(userState.username + ':' + userPass)}`,
       },
     })
 
