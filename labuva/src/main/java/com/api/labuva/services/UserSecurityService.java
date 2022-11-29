@@ -32,6 +32,10 @@ public class UserSecurityService {
                 .username(userPostRequestBody.getUsername())
                 .password(passwordEncoder().encode(userPostRequestBody.getPassword()))
                 .role("ROLE_USER")
+                .email(userPostRequestBody.getEmail())
+                .university(userPostRequestBody.getUniversity())
+                .name(userPostRequestBody.getName())
+                .lastname(userPostRequestBody.getLastname())
                 .build();
 
         return userRepository.save(userModel);
@@ -43,6 +47,8 @@ public class UserSecurityService {
                 .username(userPostRequestBody.getUsername())
                 .password(passwordEncoder().encode(userPostRequestBody.getPassword()))
                 .role("ROLE_USER,ROLE_ADMIN")
+                .email(userPostRequestBody.getEmail())
+                .university(userPostRequestBody.getUniversity())
                 .build();
 
         return userRepository.save(userModel);

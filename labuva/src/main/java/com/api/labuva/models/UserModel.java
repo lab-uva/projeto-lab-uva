@@ -28,10 +28,24 @@ public class UserModel implements GrantedAuthority,UserDetails {
     private String username;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String lastname;
+
+    @Column(nullable = false,unique = true)
+    private String email;
+
+    @Column
+    private String university;
+
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
     private String role;
+
+
 
     @Override
     public String getAuthority() {
@@ -54,6 +68,22 @@ public class UserModel implements GrantedAuthority,UserDetails {
     @Override
     public String getUsername() {
         return this.username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(String university) {
+        this.university = university;
     }
 
     @Override

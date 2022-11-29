@@ -19,13 +19,22 @@ export const Signup = () => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [university, setUniversity] = useState('')
+  const [name, setName] = useState('')
+  const [lastname, setLastname] = useState('')
   const [data, setData] = useState<any[] | null>(null)
+  const [oneSignalData, setOneSignalData] = useState<any[] | null>(null)
   const [error, setError] = useState(false)
 
   const onSubmit = async () => {
     const values = {
       username,
       password,
+      email,
+      university,
+      name,
+      lastname,
     }
 
     await fetch('http://localhost:8080/user/register', {
@@ -41,6 +50,31 @@ export const Signup = () => {
 
       status === 201 ? navigate('/') : setError(true)
     })
+
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        app_id: '8c7467db-b7b7-4275-a34d-af875f5c2922',
+        device_type: 5,
+        language: 'en',
+        tags: {
+          email: email,
+        },
+        notification_types: 1,
+      }),
+    }
+
+    await fetch('https://onesignal.com/api/v1/players', options)
+      .then(async (response) => {
+        const json = await response.json()
+        setOneSignalData(json)
+      })
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err))
   }
 
   return (
@@ -56,6 +90,30 @@ export const Signup = () => {
           onChange={({ target }) => setUsername(target.value)}
           errorMessage="Usuário em uso. Escolha um nome diferente."
           hasError={error ? true : false}
+        />
+        <Input
+          type="text"
+          label="Nome"
+          value={name}
+          onChange={({ target }) => setName(target.value)}
+        />
+        <Input
+          type="text"
+          label="Sobrenome"
+          value={lastname}
+          onChange={({ target }) => setLastname(target.value)}
+        />
+        <Input
+          type="text"
+          label="Universiadade"
+          value={university}
+          onChange={({ target }) => setUniversity(target.value)}
+        />
+        <Input
+          type="text"
+          label="E-mail"
+          value={email}
+          onChange={({ target }) => setEmail(target.value)}
         />
         <Input
           type="password"
