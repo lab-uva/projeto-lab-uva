@@ -11,6 +11,10 @@ export type UserState = {
   role: string
   userId: string
   username: string
+  name: string
+  lastname: string
+  email: string
+  university: string
 }
 
 type UserContextProps = {
@@ -32,6 +36,10 @@ const defaultValues = {
   role: '',
   userId: '',
   username: '',
+  name: '',
+  lastname: '',
+  email: '',
+  university: '',
 }
 
 const UserContext = createContext<UserContextProps>({

@@ -1,5 +1,11 @@
 import { useContext } from 'react'
-import { Home, AddBox, ExitToApp } from '@mui/icons-material'
+import {
+  Home,
+  AddBox,
+  ExitToApp,
+  Person,
+  MoodRounded,
+} from '@mui/icons-material'
 import {
   Divider,
   List,
@@ -12,6 +18,7 @@ import styled, { css } from 'styled-components'
 import { pagesLinks } from './pages-links'
 import { useNavigate } from 'react-router-dom'
 import UserContext from '../../contexts/user'
+import ThemeContext from '../../contexts/theme'
 
 const Area = styled.div`
   ${({ theme }) => css`
@@ -20,7 +27,13 @@ const Area = styled.div`
   `}
 `
 
+const Logo = styled.h3`
+  font-size: 32px;
+  color: #1976d2;
+`
+
 export const PageList = () => {
+  const { themeState, setTheme } = useContext(ThemeContext)
   const { clearUserContext } = useContext(UserContext)
   const navigate = useNavigate()
 
@@ -32,7 +45,9 @@ export const PageList = () => {
 
   return (
     <Area>
-      <Toolbar>Add logo</Toolbar>
+      <Toolbar>
+        <Logo>Labuva</Logo>
+      </Toolbar>
       <Divider />
       <List>
         <ListItem key={pagesLinks[0].page} disablePadding>
@@ -56,13 +71,39 @@ export const PageList = () => {
         <ListItem key={pagesLinks[2].page} disablePadding>
           <ListItemButton
             onClick={() => {
+              navigate('/user')
+            }}
+          >
+            <ListItemIcon>
+              <Person color="primary" />
+            </ListItemIcon>
+            <p>{pagesLinks[2].page}</p>
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem key={pagesLinks[3].page} disablePadding>
+          <ListItemButton
+            onClick={() => {
+              setTheme(!themeState)
+            }}
+          >
+            <ListItemIcon>
+              <MoodRounded color="primary" />
+            </ListItemIcon>
+            <p>{pagesLinks[3].page}</p>
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem key={pagesLinks[4].page} disablePadding>
+          <ListItemButton
+            onClick={() => {
               handleLogout()
             }}
           >
             <ListItemIcon>
               <ExitToApp color="primary" />
             </ListItemIcon>
-            <p>{pagesLinks[2].page}</p>
+            <p>{pagesLinks[4].page}</p>
           </ListItemButton>
         </ListItem>
       </List>

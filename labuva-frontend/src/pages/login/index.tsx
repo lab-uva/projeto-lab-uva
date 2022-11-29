@@ -49,6 +49,10 @@ export const Login = () => {
           role: json.role,
           userId: json.userId,
           username: json.username,
+          name: json.name,
+          lastname: json.lastname,
+          email: json.email,
+          university: json.university,
         })
 
         const status = response.status

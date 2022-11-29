@@ -5,6 +5,7 @@ import { Details } from './details'
 import { Home } from './home'
 import { Login } from './login'
 import { Signup } from './signup'
+import { UserDetails } from './user-details'
 
 export const router = createBrowserRouter([
   // open routes
@@ -39,6 +40,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <Details />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/user',
+    element: (
+      <ProtectedRoute>
+        <UserDetails />
       </ProtectedRoute>
     ),
   },

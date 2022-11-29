@@ -1,8 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Box, Drawer, AppBar, Toolbar, IconButton } from '@mui/material'
 
 import { Menu as MenuIcon } from '@mui/icons-material'
 import { PageList } from './pages-list'
+import styled from 'styled-components'
+import UserContext from '../../contexts/user'
+
+const TopBar = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+`
+
+const WelcomeMessage = styled.div`
+  font-size: 24px;
+  color: white;
+`
 
 type Props = {
   children: React.ReactNode
@@ -11,6 +24,7 @@ type Props = {
 const drawerWidth = 240
 
 export const Panel = ({ children }: Props) => {
+  const { userState } = useContext(UserContext)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const handleDrawerToggle = () => {
@@ -42,6 +56,11 @@ export const Panel = ({ children }: Props) => {
           >
             <MenuIcon />
           </IconButton>
+          <TopBar>
+            <WelcomeMessage>
+              Bem vindo, {`${userState.name} ${userState.lastname}`}
+            </WelcomeMessage>
+          </TopBar>
         </Toolbar>
       </AppBar>
       <Box

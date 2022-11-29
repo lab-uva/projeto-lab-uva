@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { RouterProvider } from 'react-router-dom'
 import GlobalStyle from './styles/global.css'
@@ -7,9 +7,10 @@ import OneSignal from 'react-onesignal'
 
 import { UserContextProvider } from './contexts/user'
 import { router } from './pages/routes'
+import ThemeContext, { ThemeContextProvider } from './contexts/theme'
 
 const App = () => {
-  const [theme, setTheme] = useState(true)
+  const { themeState } = useContext(ThemeContext)
   const [test, setTest] = useState(true) // implementar oneSignal
 
   useEffect(() => {
@@ -53,12 +54,12 @@ const App = () => {
   }, [])
 
   return (
-    <UserContextProvider>
-      <ThemeProvider theme={theme ? darkTheme : lightTheme}>
+    <ThemeContextProvider>
+      <UserContextProvider>
         <GlobalStyle />
         <RouterProvider router={router} />
-      </ThemeProvider>
-    </UserContextProvider>
+      </UserContextProvider>
+    </ThemeContextProvider>
   )
 }
 
