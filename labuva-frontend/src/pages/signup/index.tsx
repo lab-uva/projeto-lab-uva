@@ -105,7 +105,7 @@ export const Signup = () => {
         />
         <Input
           type="text"
-          label="Universiadade"
+          label="Universidade"
           value={university}
           onChange={({ target }) => setUniversity(target.value)}
         />
