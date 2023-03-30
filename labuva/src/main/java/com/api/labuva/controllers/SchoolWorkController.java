@@ -38,6 +38,12 @@ public class SchoolWorkController {
         return ResponseEntity.status(HttpStatus.OK).body(schoolWorkService.findAll());
     }
 
+    @GetMapping("/getAllTest")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<List<SchoolWorkModel>> getAllSchoolWorkTest() {
+        return ResponseEntity.status(HttpStatus.OK).body(schoolWorkService.findAllTest());
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<Object> getSchoolWorkById(@PathVariable UUID id) {

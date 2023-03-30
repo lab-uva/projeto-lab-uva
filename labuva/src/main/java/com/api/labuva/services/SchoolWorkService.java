@@ -50,6 +50,12 @@ public class SchoolWorkService {
         return schoolWorkModelList;
     }
 
+    public List<SchoolWorkModel> findAllTest() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserModel userModel = userSecurityService.findByName(username);
+        return schoolWorkRepository.findAllByUserModel_UserId(userModel.getUserId());
+    }
+
     public SchoolWorkModel findByIdOrThrowBadRequestException(UUID id) {
         return schoolWorkRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, " Not found"));
